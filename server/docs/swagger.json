@@ -1,0 +1,433 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "1.0.0",
+        "title": "API Doc",
+        "description": "API doc",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "info@virtualcapital.co.nz"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9006/v1",
+            "description": "Local"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Status",
+            "description": "Health check"
+        },
+        {
+            "name": "Users",
+            "description": "User apis"
+        },
+        {
+            "name": "Hobbies",
+            "description": "Hobby apis"
+        }
+    ],
+    "security": [
+        {
+            "ApiKeyAuth": []
+        }
+    ],
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/health": {
+            "get": {
+                "tags": ["Status"],
+                "summary": "Health check endpoint",
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Create user",
+                "requestBody": {
+                    "description": "User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get user",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/definitions/Name"
+                        },
+                        "required": false,
+                        "description": "User name"
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "put": {
+                "tags": ["Users"],
+                "summary": "Update user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/components/definitions/Id"
+                        },
+                        "required": true,
+                        "description": "User id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Users"],
+                "summary": "Delete user",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/components/definitions/Id"
+                        },
+                        "required": true,
+                        "description": "User id"
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/hobbies": {
+            "post": {
+                "tags": ["Hobbies"],
+                "summary": "Create hobby",
+                "requestBody": {
+                    "description": "Hobby object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/definitions/Hobby"
+                            }
+                        }
+                    }
+                },
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/HobbyResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Hobbies"],
+                "summary": "Get hobbies",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/definitions/Name"
+                        },
+                        "required": false,
+                        "description": "Hobby name"
+                    },
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/definitions/Year"
+                        },
+                        "required": false,
+                        "description": "Hobby year"
+                    },
+                    {
+                        "name": "passionLevel",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/definitions/PassionLevel"
+                        },
+                        "required": false,
+                        "description": "Hobby PassionLevel"
+                    },
+                    {
+                        "name": "user",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/definitions/Id"
+                        },
+                        "required": false,
+                        "description": "User id"
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/hobbies/{id}": {
+            "put": {
+                "tags": ["Hobbies"],
+                "summary": "Update hobby",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/components/definitions/Id"
+                        },
+                        "required": true,
+                        "description": "User id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "User object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/definitions/Hobby"
+                            }
+                        }
+                    }
+                },
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Hobbies"],
+                "summary": "Delete hobby",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "schema": {
+                            "$ref": "#/components/definitions/Id"
+                        },
+                        "required": true,
+                        "description": "Hobby id"
+                    }
+                ],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/components/definitions/HobbyResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        }
+    },
+
+    "components": {
+        "definitions": {
+            "Id": {
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Year": {
+                "properties": {
+                    "year": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PassionLevel": {
+                "properties": {
+                    "year": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Name": {
+                "properties": {
+                    "passionLevel": {
+                        "type": "string"
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            },
+            "Hobby": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "string"
+                    },
+                    "passionLevel": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string"
+                    }
+                }
+            },
+            "UserResponse": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "HobbyResponse": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "string"
+                    },
+                    "passionLevel": {
+                        "type": "string"
+                    },
+                    "user": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "Authorization"
+            }
+        }
+    }
+}
