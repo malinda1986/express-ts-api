@@ -10,6 +10,7 @@ Clone the project from ``https://github.com/malinda1986/express-ts-api.git``
 - mongoose
 - typedi
 - jest
+- joi
 
 ## API service.
 
